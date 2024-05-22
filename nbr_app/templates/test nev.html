@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>ConnectAura</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./static/nbr_styles.css" />
+    <link rel="icon" type="image/x-icon" href="./static/assets/aconnectlogo.jpg" />
+    <style>
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="/"><img src="./static/assets/aconnectlogo.jpg" class="logo itemleft" alt="site_logo" /></a>
+        <nav class="itemcentre">
+            <ul class="nav_links">
+                <!-- <li><a href="#" id="uploadButton">UPLOAD FILE</a></li> -->
+                <li><a href="/plan_bcch" id="bcchLink">BCCH ANALYSIS</a></li>
+                <li><a href="/generate_map" id="mapLink">MAP GENERATOR</a></li>
+                <li><a href="/plan_nbr" id="nbrLink">NBR PLANNING</a></li>
+                <li><a href="/list_files" id="fileListLink">FILE LIST</a></li>
+            </ul>
+        </nav>
+        <!-- <a href="./login.html" target="_blank" class="navbar-link">Login</a> -->
+    </header>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+        // Function to show loading overlay
+        function showLoadingOverlay() {
+            document.querySelector(".loading-overlay").style.display = "block";
+        }
+
+        // Function to hide loading overlay
+        function hideLoadingOverlay() {
+            document.querySelector(".loading-overlay").style.display = "none";
+        }
+
+        // Event listeners for each navigation link
+        document.getElementById("bcchLink").addEventListener("click", function () {
+            showLoadingOverlay();
+            // Simulate data loading process (replace with actual data loading code)
+            // Once data loading is complete, call hideLoadingOverlay() to hide the overlay
+        });
+
+        document.getElementById("mapLink").addEventListener("click", function () {
+            showLoadingOverlay();
+            // Simulate data loading process (replace with actual data loading code)
+            // Once data loading is complete, call hideLoadingOverlay() to hide the overlay
+        });
+
+        document.getElementById("nbrLink").addEventListener("click", function () {
+            showLoadingOverlay();
+            // Simulate data loading process (replace with actual data loading code)
+            // Once data loading is complete, call hideLoadingOverlay() to hide the overlay
+        });
+
+        document.getElementById("fileListLink").addEventListener("click", function () {
+            showLoadingOverlay();
+            // Simulate data loading process (replace with actual data loading code)
+            // Once data loading is complete, call hideLoadingOverlay() to hide the overlay
+        });
+    </script>
+</body>
+
+</html>

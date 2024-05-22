@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Generate Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./static/nbr_styles.css" />
+    <script src="main.js"></script>
+    <link rel="icon" type="image/x-icon" href="./static/assets/aconnectlogo.jpg" />
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+            background-color: linear-gradient(60deg, #29323c 0%, #485563 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px;
+        }
+
+        #mapFormContainer,
+        #searchContainer {
+            background-color: linear-gradient(60deg, #29323c 0%, #485563 100%);
+            width: 100%;
+            border-radius: 5px;
+            flex: 1;
+            margin: 20px auto;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-right: 20px;
+        }
+
+        select,
+        input[type="number"] {
+            width: 200px;
+            height: 30px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .canvas-container {
+            border: 1px solid black;
+            margin: 10px auto;
+            width: 95vw;
+            height: 80vh;
+        }
+        #searchInput1,
+        #searchInput2 {
+            width: 200px;
+            height: 30px; /* Adjusted height */
+            font-weight: bold;
+            overflow-x: hidden;
+            font-size: small;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: small;
+            padding: 8px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            width: 200px;
+            height: 30px;
+        }
+
+        #searchInput {
+            width: 200px;
+            height: 30px;
+            font-weight: bold;
+            overflow-x: hidden;
+            font-size: small;
+            border: none;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            color: black;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            /* Adjust the z-index value as needed */
+            padding: 10px;
+        }
+
+
+        .dropdown-content a {
+            display: block;
+            padding: 7px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'includes/navbar.html' %}
+    <div id="mapFormContainer">
+        <form id="mapForm" action="/search_gen_map" method="post">
+            <label for="site1_id" style="color: white; font-weight: bold; font-size: 17px;">SITE A:</label>
+            <input type="text" name="site1_id" id="searchInput1" placeholder="Enter site ID" title="Type in a site ID">
+            <input type="hidden" id="selected_site_id1" name="selected_site_id1">
+
+
+            <label for="site2_id" style="color: white; font-weight: bold; font-size: 17px;">SITE B:</label>
+            <input type="text" name="site2_id" id="searchInput2" placeholder="Enter site ID" title="Type in a site ID">
+            <input type="hidden" id="selected_site_id2" name="selected_site_id2">
+
+            <button type="submit"
+                style="background-color: white; color: black; font-weight: bold; padding: 5px 14px; font-size: 15px;">Generate
+                Map</button>
+            <button type="button"
+                style="background-color: white; color: black; font-weight: bold; padding: 5px 14px; font-size: 15px;"
+                onclick="cancel()">Reset</button>
+        </form>
+
+    </div>
+
+    <div id="mapCanvasContainer" class="canvas-container">
+        {{ map_content | safe }}
+    </div>
+
+    <script>
+        function filterFunction(num) {
+            var input, filter, dropdown, a, i, matchFound;
+            input = document.getElementById("searchInput" + num);
+            filter = input.value.toUpperCase();
+            dropdown = document.getElementById("myDropdown" + num);
+            a = dropdown.getElementsByTagName("a");
+            matchFound = false;
+
+            // Loop through all sites
+            for (i = 0; i < a.length; i++) {
+                txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) === 0) { // Check if site starts with filter text
+                    a[i].style.display = ""; // Display if match found
+                    matchFound = true;
+                } else {
+                    a[i].style.display = "none"; // Hide if no match
+                }
+            }
+
+            // Show "Site not found" message if no matches found
+            var noResultsMsg = document.getElementById("noResults" + num);
+            if (!matchFound) {
+                noResultsMsg.style.display = "block";
+            } else {
+                noResultsMsg.style.display = "none";
+            }
+        }
+
+        function selectSite1(site_id) {
+            document.getElementById("selected_site_id1").value = site_id;
+            document.getElementById("selected_site_btn1").innerText = site_id;
+        }
+
+        function selectSite2(site_id) {
+            document.getElementById("selected_site_id2").value = site_id;
+            document.getElementById("selected_site_btn2").innerText = site_id;
+        }
+        function submitForm(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Simulate form processing
+            var site1_id = document.getElementById('selected_site_id1').value;
+            var site2_id = document.getElementById('selected_site_id2').value;
+
+            // Simulate map generation
+            var mapContent = `Map generated for Site 1: ${site1_id} and Site 2: ${site2_id}`;
+            document.getElementById('mapCanvasContainer').innerHTML = mapContent;
+
+            // Toggle class to adjust dropdown z-index
+            document.getElementById('myDropdown').classList.toggle('dropdown-active');
+        }
+
+
+        function resetForm() {
+            document.getElementById('mapForm').reset();
+            document.getElementById('mapCanvasContainer').innerHTML = ''; // Clear map content
+        }
+
+        function cancel() {
+            // Clear input fields
+            document.getElementById('selected_site_id1').value = '';
+            document.getElementById('selected_site_btn1').innerText = 'Select SiteID 1';
+            document.getElementById('searchInput1').value = '';
+            document.getElementById('selected_site_id2').value = '';
+            document.getElementById('selected_site_btn2').innerText = 'Select SiteID 2';
+            document.getElementById('searchInput2').value = '';
+
+            // // Opti
+            // onally, hide any error messages or reset any other elements
+        }
+    </script>
+</body>
+
+</html>

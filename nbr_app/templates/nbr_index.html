@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>GeoLytics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./static/nbr_styles.css">
+  <link rel="icon" type="image/x-icon" href="./static/assets/aconnectlogo.jpg" />
+  <style>
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: none;
+    }
+
+    .popup.active {
+      display: block;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+    }
+
+    .loading-text {
+      color: #fff;
+      font-size: 18px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.25);
+      margin-top: 10px;
+      margin-left: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .btn-group {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  {% include 'includes/navbar.html' %}
+
+
+
+  <a class="btn btn-outline-light" href="#" id="uploadButton">UPLOAD FILE</a>
+  <div class="popup">
+    <div class="loading-overlay">
+      <div class="loading-text">Loading... <span class="progress-text"></span></div>
+      <div class="loading-spinner"></div>
+    </div>
+    <div class="form">
+      <span class="close-btn" onclick="hidePopup()">&times;</span>
+      <form id="uploadForm" method="POST" enctype="multipart/form-data" action="/upload">
+        <div class="form-element">
+          <label for="file">File:</label>
+          <input type="file" name="file" accept=".xlsx, .xls">
+        </div>
+        <div class="form-element">
+          <label for="sheet_name">SHEET NAME:</label>
+          <input type="text" id="sheet_name" name="sheet_name" required>
+        </div>
+        <div class="form-element">
+          <label for="header_row">HEADER NUMBER</label>
+          <input type="text" id="header_row" name="header_row" required min="0" value="1">
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <a class="btn btn-outline-light" href="#" id="exportButton">EXPORT TO DATABASE</a>
+  <div class="popup export-popup">
+    <div class="loading-overlay">
+      <div class="loading-text">Loading... <span class="progress-text"></span></div>
+      <div class="loading-spinner"></div>
+    </div>
+    <div class="form">
+      <span class="close-btn" onclick="hidePopup()">&times;</span>
+      <form id="exportForm" method="POST" enctype="multipart/form-data" action="/export">
+        <div class="form-element">
+          <label for="file">File:</label>
+          <input type="file" name="file" accept=".xlsx, .xls">
+        </div>
+        <div class="form-element">
+          <label for="sheet_name">SHEET NAME:</label>
+          <input type="text" id="sheet_name" name="sheet_name" required>
+        </div>
+        <div class="form-element">
+          <label for="header_row">HEADER NUMBER</label>
+          <input type="text" id="header_row" name="header_row" required min="0" value="1">
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <a class="btn btn-outline-light" href="#" id="dataButton">IMPORT FROM DATABASE</a>
+  <div class="popup data-popup">
+    <div class="loading-overlay">
+      <div class="loading-text">Loading... <span class="progress-text"></span></div>
+      <div class="loading-spinner"></div>
+    </div>
+    <div class="form">
+      <span class="close-btn" onclick="hidePopup()">&times;</span>
+      <form id="databaseForm" method="POST" action="/import">
+        <div class="form-element">
+          <label for="table_select">Select a table:</label>
+          <select id="table_select" name="table_select">
+            {% for table in tables %}
+            <option value="{{ table }}">{{ table }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function showPopup(popupSelector) {
+      // Hide all popups
+      document.querySelectorAll('.popup').forEach(function (popup) {
+        popup.classList.remove('active');
+      });
+      document.querySelector(popupSelector).classList.add("active");
+    }
+
+    function hidePopup() {
+      document.querySelectorAll(".popup").forEach(function (popup) {
+        popup.classList.remove("active");
+      });
+      document.querySelector(".loading-overlay").style.display = "none"; // Hide loading overlay
+    }
+
+    document.querySelector("#uploadButton").addEventListener("click", function () {
+      showPopup(".popup"); // Show the upload popup
+    });
+
+    document.querySelector("#exportButton").addEventListener("click", function () {
+      showPopup(".export-popup"); // Show the export popup
+    });
+
+    document.querySelector(".close-btn").addEventListener("click", function () {
+      hidePopup(); // Close all popups when close button is clicked
+    });
+
+    document.querySelector("#dataButton").addEventListener("click", function () {
+      showPopup(".data-popup"); // Show the database popup
+    });
+
+    document.querySelector("#exportForm").addEventListener("submit", function () {
+      showPopup(".loading-overlay"); // Show loading overlay when export form is submitted
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Generate Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./static/nbr_styles.css" />
+    <link rel="icon" type="image/x-icon" href="./static/assets/aconnectlogo.jpg" />
+
+    <!-- Choices.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+            background-color: linear-gradient(60deg, #29323c 0%, #485563 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px;
+        }
+
+        #mapFormContainer,
+        #searchContainer {
+            background-color: linear-gradient(60deg, #29323c 0%, #485563 100%);
+            width: 100%;
+            border-radius: 5px;
+            flex: 1;
+            margin-top: 18px;
+        }
+
+        form {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-right: 20px;
+        }
+
+        select,
+        input[type="number"] {
+            width: 200px;
+            height: 30px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .canvas-container {
+            border: 1px solid black;
+            margin: 10px auto;
+            width: 95vw;
+            height: 80vh;
+        }
+
+        .choices {
+            width: 200px;
+            height: 40px;
+        }
+
+        .choices__list {
+            width: 200px;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'includes/navbar.html' %}
+
+    <div id="mapFormContainer">
+        <form id="mapForm" action="/generate_map" method="post">
+
+            <label for="selected_column" style="color: white; font-weight: bold; font-size: 13px;">KPI TO
+                DISPLAY:</label>
+            <select id="kpiSelect" name="selected_column">
+                {% for column in column_names %}
+                <option value="{{ column }}">{{ column }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="site_id_1" style="color: white; font-weight: bold; font-size: 13px;">SITE ID:</label>
+            <select id="siteIdSelect" name="site_id_1">
+                {% for site_id in site_ids %}
+                <option value="{{ site_id }}">{{ site_id }}</option>
+                {% endfor %}
+            </select>
+
+            <input type="hidden" id="selected_site_id" name="selected_site_id">
+
+            <label for="map" style="color: white; font-weight: bold; font-size: 13px;">STYLE:</label>
+            <select id="map" name="map" required style="width: 120px; font-weight: bold; height: 25px;">
+                {% for column1 in Map_styles %}
+                <option value="{{ column1 }}" {% if column1==map_style_default %} selected {% endif %}>{{ column1 }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <label for="max_distance" style="color: white; font-weight: bold; font-size: 13px;">DISTANCE(KM):</label>
+            <input type="number" id="max_distance" name="max_distance" required style="width: 110px; font-weight: bold;"
+                value="{{ max_distance_default }}">
+
+            <label for="r" style="color: white; font-weight: bold; font-size: 13px;">RADIUS:</label>
+            <select id="r" name="r" required style="width: 120px; font-weight: bold;">
+                {% for column in Radius %}
+                <option value="{{ column }}" {% if column==radius_default %} selected {% endif %}>{{ column }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit"
+                style="background-color: white; color: black; font-weight: bold; padding: 5px 14px; font-size: 15px;">Generate
+                Map</button>
+
+            <a href="/search_gen_map" class="btn btn-primary"
+                style="background-color: white; color: black; font-weight: bold; padding: 5px 10px; font-size: 16px;">TWO
+                SITES SEARCH</a>
+        </form>
+    </div>
+
+    <div id="mapCanvasContainer" class="canvas-container">
+        {{ map_content | safe }}
+    </div>
+
+    <!-- Choices.js JS -->
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script>
+        if (window.location.method == 'GET') {
+            document.getElementById('mapFormContainer').style.display = 'flex';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const kpiSelect = new Choices('#kpiSelect', {
+                searchEnabled: true,
+                itemSelectText: ''
+            });
+
+            const siteIdSelect = new Choices('#siteIdSelect', {
+                searchEnabled: true,
+                itemSelectText: ''
+            });
+        });
+
+        function filterFunction() {
+            var input, filter, dropdown, a, i, matchFound;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            dropdown = document.getElementById("myDropdown");
+            a = dropdown.getElementsByTagName("a");
+            matchFound = false;
+
+            for (i = 0; i < a.length; i++) {
+                var txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().includes(filter)) {
+                    a[i].style.display = "";
+                    matchFound = true;
+                } else {
+                    a[i].style.display = "none";
+                }
+            }
+
+            var noResultsMsg = document.getElementById("noResults");
+            if (!matchFound) {
+                noResultsMsg.style.display = "block";
+            } else {
+                noResultsMsg.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

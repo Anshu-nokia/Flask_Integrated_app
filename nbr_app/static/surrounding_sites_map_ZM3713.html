@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_32ce37f49c9c7b75ade10a53eeea63ef {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_32ce37f49c9c7b75ade10a53eeea63ef" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_32ce37f49c9c7b75ade10a53eeea63ef = L.map(
+                "map_32ce37f49c9c7b75ade10a53eeea63ef",
+                {
+                    center: [-15.35706, 28.472404],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 13,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_ec6435fce1b483be23032c79edf36e97 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_ec6435fce1b483be23032c79edf36e97.addTo(map_32ce37f49c9c7b75ade10a53eeea63ef);
+        
+    
+            var circle_marker_8ecfa7c69f717189e018410468c040b6 = L.circleMarker(
+                [-15.35706, 28.472404],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_32ce37f49c9c7b75ade10a53eeea63ef);
+        
+    
+            circle_marker_8ecfa7c69f717189e018410468c040b6.bindTooltip(
+                `<div>
+                     ZM3713
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_52b874ada0f38b897e5aa0f5255fcb69 = L.circleMarker(
+                [-15.35706, 28.472404],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_32ce37f49c9c7b75ade10a53eeea63ef);
+        
+    
+            circle_marker_52b874ada0f38b897e5aa0f5255fcb69.bindTooltip(
+                `<div>
+                     ZM3713
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var circle_marker_78b695bea1fe695022b100ada5016114 = L.circleMarker(
+                [-15.35706, 28.472404],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_32ce37f49c9c7b75ade10a53eeea63ef);
+        
+    
+            circle_marker_78b695bea1fe695022b100ada5016114.bindTooltip(
+                `<div>
+                     ZM3713
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var feature_group_475ad9563b3ea7fc225267280bcbe628 = L.featureGroup(
+                {}
+            );
+        
+    
+            var polygon_7f3131c82dcfd5c0446c78ad0ba2601f = L.polygon(
+                [[-15.35406, 28.472404], [-15.35406, 28.472404], [-15.354461923788648, 28.473904], [-15.35556, 28.475002076211354], [-15.35406, 28.472404]],
+                {"bubblingMouseEvents": true, "color": "#000000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5733", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(feature_group_475ad9563b3ea7fc225267280bcbe628);
+        
+    
+        var popup_c8631c474422f57cf80e9ff4267a840c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_32bbe70bc5dba83e34fd9e2982130319 = $(`<div id="html_32bbe70bc5dba83e34fd9e2982130319" style="width: 100.0%; height: 100.0%;"><b>Cell:</b> 9461<br><b>Site ID:</b> ZM3713<br><b>Full Site Name:</b> ZM3713_SILVERREST<br><b>SECTORN:</b> ZM3713A<br><b>sector name:</b> A<br><b>Count Of Cell:</b> 3<br><b>Cell ID:</b> 1<br><b>Sector ID:</b> ZM3713_1<br><b>Cell Name:</b> SILVERREST_1<br><b>SITENAME:</b> SILVERREST<br><b>Vendor Name:</b> Ericsson<br><b>BSC Name:</b> LSEBS04<br><b>CGI:</b> 645-01-22042-9461<br><b> Site Type ( IM-Indoor Macro, OM-Outdoor Macro, TT-Tower Top Macro, MI-Micro, IB-IBS ):</b> Outdoor<br><b>HQ Town:</b> Lusaka<br><b>Long:</b> 28.472404<br><b>Lat:</b> -15.35706<br><b>MCC:</b> 645<br><b>MNC:</b> 1<br><b>LAC:</b> 22042<br><b>RAC:</b> 1<br><b>CI:</b> 9461<br><b>Antenna :</b> ROSENBERGER<br><b>Antenna Model:</b> 2G5WF21<br><b>Tower Ht:</b> 40<br><b>Antenna Height:</b> 38<br><b>Azimuth:</b> 0<br><b>M Tilt:</b> 1<br><b>E Tilt (900):</b> 5<br><b>1800(Etilt):</b> 4.3<br><b>BSIC:</b> 0<br><b>TCH Frequencies:</b> nan<br><b>Status:</b> Active- Old Site<br><b>BCCH:</b> 16<br><b>Audit date:</b> Updated as per Ericsson Data<br><b>Audit Remark :</b> nan<br><b>On Air Date:</b> 2010-11-16 00:00:00<br><b>Utilization:</b> 26.8836869056327<br><b>Tag:</b> Green<br></div>`)[0];
+                popup_c8631c474422f57cf80e9ff4267a840c.setContent(html_32bbe70bc5dba83e34fd9e2982130319);
+            
+        
+
+        polygon_7f3131c82dcfd5c0446c78ad0ba2601f.bindPopup(popup_c8631c474422f57cf80e9ff4267a840c)
+        ;
+
+        
+    
+    
+            feature_group_475ad9563b3ea7fc225267280bcbe628.addTo(map_32ce37f49c9c7b75ade10a53eeea63ef);
+        
+    
+            var feature_group_b06ae938c1bb17311988700f9123c0d5 = L.featureGroup(
+                {}
+            );
+        
+    
+            var polygon_ec74aaae9de46ed6e27d6f23a8a9a48b = L.polygon(
+                [[-15.358086060429978, 28.47522307786236], [-15.358086060429978, 28.47522307786236], [-15.359358133329357, 28.47433236282906], [-15.360014423259038, 28.472924944533002], [-15.358086060429978, 28.47522307786236]],
+                {"bubblingMouseEvents": true, "color": "#000000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD433", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(feature_group_b06ae938c1bb17311988700f9123c0d5);
+        
+    
+        var popup_9a5a425c8768cca94d67d6b4e32452fe = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0bcb4a2280b7f8f9b69d2e8892e69f98 = $(`<div id="html_0bcb4a2280b7f8f9b69d2e8892e69f98" style="width: 100.0%; height: 100.0%;"><b>Cell:</b> 9462<br><b>Site ID:</b> ZM3713<br><b>Full Site Name:</b> ZM3713_SILVERREST<br><b>SECTORN:</b> ZM3713B<br><b>sector name:</b> B<br><b>Count Of Cell:</b> 3<br><b>Cell ID:</b> 2<br><b>Sector ID:</b> ZM3713_2<br><b>Cell Name:</b> SILVERREST_2<br><b>SITENAME:</b> SILVERREST<br><b>Vendor Name:</b> Ericsson<br><b>BSC Name:</b> LSEBS04<br><b>CGI:</b> 645-01-22042-9462<br><b> Site Type ( IM-Indoor Macro, OM-Outdoor Macro, TT-Tower Top Macro, MI-Micro, IB-IBS ):</b> Outdoor<br><b>HQ Town:</b> Lusaka<br><b>Long:</b> 28.472404<br><b>Lat:</b> -15.35706<br><b>MCC:</b> 645<br><b>MNC:</b> 1<br><b>LAC:</b> 22042<br><b>RAC:</b> 1<br><b>CI:</b> 9462<br><b>Antenna :</b> ROSENBERGER<br><b>Antenna Model:</b> 2G5WF21<br><b>Tower Ht:</b> 40<br><b>Antenna Height:</b> 38<br><b>Azimuth:</b> 110<br><b>M Tilt:</b> 1<br><b>E Tilt (900):</b> 6<br><b>1800(Etilt):</b> 3<br><b>BSIC:</b> 13<br><b>TCH Frequencies:</b> nan<br><b>Status:</b> Active- Old Site<br><b>BCCH:</b> 11<br><b>Audit date:</b> Updated as per Ericsson Data<br><b>Audit Remark :</b> nan<br><b>On Air Date:</b> 2010-11-16 00:00:00<br><b>Utilization:</b> 29.9829434697855<br><b>Tag:</b> Green<br></div>`)[0];
+                popup_9a5a425c8768cca94d67d6b4e32452fe.setContent(html_0bcb4a2280b7f8f9b69d2e8892e69f98);
+            
+        
+
+        polygon_ec74aaae9de46ed6e27d6f23a8a9a48b.bindPopup(popup_9a5a425c8768cca94d67d6b4e32452fe)
+        ;
+
+        
+    
+    
+            feature_group_b06ae938c1bb17311988700f9123c0d5.addTo(map_32ce37f49c9c7b75ade10a53eeea63ef);
+        
+    
+            var feature_group_545c2faddab92abc050fa4d3b906ea04 = L.featureGroup(
+                {}
+            );
+        
+    
+            var polygon_9c5bdf56e91750bd9e22047e325dc886 = L.polygon(
+                [[-15.35856, 28.46980592378865], [-15.35856, 28.46980592378865], [-15.35706, 28.469404], [-15.35556, 28.46980592378865], [-15.35856, 28.46980592378865]],
+                {"bubblingMouseEvents": true, "color": "#000000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#33B5FF", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(feature_group_545c2faddab92abc050fa4d3b906ea04);
+        
+    
+        var popup_a8ebae5b9dab45948a45c8efbc81e577 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_aaae10f0b8783dc26151bea2f6bbaf21 = $(`<div id="html_aaae10f0b8783dc26151bea2f6bbaf21" style="width: 100.0%; height: 100.0%;"><b>Cell:</b> 9463<br><b>Site ID:</b> ZM3713<br><b>Full Site Name:</b> ZM3713_SILVERREST<br><b>SECTORN:</b> ZM3713C<br><b>sector name:</b> C<br><b>Count Of Cell:</b> 3<br><b>Cell ID:</b> 3<br><b>Sector ID:</b> ZM3713_3<br><b>Cell Name:</b> SILVERREST_3<br><b>SITENAME:</b> SILVERREST<br><b>Vendor Name:</b> Ericsson<br><b>BSC Name:</b> LSEBS04<br><b>CGI:</b> 645-01-22042-9463<br><b> Site Type ( IM-Indoor Macro, OM-Outdoor Macro, TT-Tower Top Macro, MI-Micro, IB-IBS ):</b> Outdoor<br><b>HQ Town:</b> Lusaka<br><b>Long:</b> 28.472404<br><b>Lat:</b> -15.35706<br><b>MCC:</b> 645<br><b>MNC:</b> 1<br><b>LAC:</b> 22042<br><b>RAC:</b> 1<br><b>CI:</b> 9463<br><b>Antenna :</b> ROSENBERGER<br><b>Antenna Model:</b> 2G5WF21<br><b>Tower Ht:</b> 40<br><b>Antenna Height:</b> 38<br><b>Azimuth:</b> 240<br><b>M Tilt:</b> 2<br><b>E Tilt (900):</b> 2<br><b>1800(Etilt):</b> 2.7<br><b>BSIC:</b> 3<br><b>TCH Frequencies:</b> nan<br><b>Status:</b> Active- Old Site<br><b>BCCH:</b> 39<br><b>Audit date:</b> Updated as per Ericsson Data<br><b>Audit Remark :</b> nan<br><b>On Air Date:</b> 2010-11-16 00:00:00<br><b>Utilization:</b> 45.8451752605223<br><b>Tag:</b> Green<br></div>`)[0];
+                popup_a8ebae5b9dab45948a45c8efbc81e577.setContent(html_aaae10f0b8783dc26151bea2f6bbaf21);
+            
+        
+
+        polygon_9c5bdf56e91750bd9e22047e325dc886.bindPopup(popup_a8ebae5b9dab45948a45c8efbc81e577)
+        ;
+
+        
+    
+    
+            feature_group_545c2faddab92abc050fa4d3b906ea04.addTo(map_32ce37f49c9c7b75ade10a53eeea63ef);
+        
+    
+            var layer_control_5494080106aaeba22554ac2fd1a92ca1_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_ec6435fce1b483be23032c79edf36e97,
+                },
+                overlays :  {
+                    "Red Sectors" : feature_group_475ad9563b3ea7fc225267280bcbe628,
+                    "Yellow Sectors" : feature_group_b06ae938c1bb17311988700f9123c0d5,
+                    "Blue Sectors" : feature_group_545c2faddab92abc050fa4d3b906ea04,
+                },
+            };
+            let layer_control_5494080106aaeba22554ac2fd1a92ca1 = L.control.layers(
+                layer_control_5494080106aaeba22554ac2fd1a92ca1_layers.base_layers,
+                layer_control_5494080106aaeba22554ac2fd1a92ca1_layers.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_32ce37f49c9c7b75ade10a53eeea63ef);
+
+        
+</script>
+</html>

@@ -1,0 +1,60 @@
+
+    <!-- <h1>Select a Column Name:</h1> -->
+    <!-- <form method="POST" action="/process">
+        <select name="column">
+            {% for col_name in column_names %}
+                <option value="{{ col_name }}">{{ col_name }}</option> 
+            {% endfor %}
+        </select>
+        <button type="submit">Submit</button>
+    </form> -->
+    <div class="container"></div>
+        <h1>Select Column Names:</h1>
+        <br>
+
+        <form method="POST" action="/process">
+            <label for="column1">Column 1:</label>
+            <select name="column1" id="column1">
+                {% for col_name in column_names %}
+                    <option value="{{ col_name }}">{{ col_name }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <!-- <input type="text" name="input1"><br><br> -->
+            
+            <label for="column2">Column 2:</label>
+            <select name="column2" id="column2">
+                {% for col_name in column_names %}
+                    <option value="{{ col_name }}">{{ col_name }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            
+            <label for="column3">Column 3:</label>
+            <select name="column3" id="column3">
+                {% for col_name in column_names %}
+                    <option value="{{ col_name }}">{{ col_name }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            
+            <label for="column4">Column 4:</label>
+            <select name="column4" id="column4">
+                {% for col_name in column_names %}
+                    <option value="{{ col_name }}">{{ col_name }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            
+            <label for="column5">Column 5:</label>
+            <select name="column5" id="column5">
+                {% for col_name in column_names %}
+                    <option value="{{ col_name }}">{{ col_name }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            
+            <button type="submit">Submit</button>
+        
+    </form>
+</div>

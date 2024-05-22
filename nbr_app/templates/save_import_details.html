@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>ConnectAura</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./static/nbr_styles.css" />
+    <script src="main.js"></script>
+    <link rel="icon" type="image/x-icon" href="./static/assets/aconnectlogo.jpg" />
+
+
+</head>
+
+<body>
+    <!-- * NAVBAR ↓ ------------------->
+    <!-- <div class="navbar">
+        <img src="./assets/aconnectlogo.jpg" alt="Logo" />
+        <a href="#" id="uploadButton">UPLOAD FILE</a>
+        <a href="./bcch.html">BCCH ANALYSIS</a>
+        <a href="./map.html">MAP GENERATOR</a>
+        <a href="./nbr.html">NBR PLANNING</a>
+        <a href="./list.html">FILE LIST</a>
+        <a href="./login.html" target="_blank" class="navbar-link">Login</a>
+    </div>   -->
+
+
+
+    </head>
+
+    <body>
+        {% include 'includes/navbar.html' %}
+        <br>
+        <h2 style="color: rgb(235, 233, 240);">Your details has been submitted successfully!</h2>
+        <br>
+        <!-- {{ dict_df_content | safe }} -->
+
+        <div style="color: rgb(226, 226, 226); font-size: 20px; text-align: center;">
+            <div style="padding: 10px;">
+                {{ dict_df_content | safe }}
+            </div>
+        </div>
+
+        <!-- <form action="/generate_map" method="post">
+        
+        <label for="selected_column">Select Column:</label><br>
+        <select id="selected_column" name="selected_column" required>
+            {% for column in column_names %}
+            <option value="{{ column }}">{{ column }}</option>
+            {% endfor %}
+        </select><br><br>
+            
+        
+        <label for="site_id_1">Site ID:</label><br>
+        <input type="text" id="site_id_1" name="site_id_1" required><br><br>
+        <label for="max_distance">Maximum Distance (km):</label><br>
+        <input type="number" id="max_distance" name="max_distance" min="1" required><br><br>
+        <input type="submit" value="Generate Map">
+    </form> -->
+
+
+
+
+
+
+
+    </body>
+
+</html>

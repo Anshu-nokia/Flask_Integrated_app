@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>GeoLytics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./static/styles.css" />
+    <link rel="icon" type="image/x-icon" href="./static/assets/aconnectlogo.jpg" />
+    <script src="main.js"></script>
+
+    <!-- Style for modal -->
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .ok-btn {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .ok-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'includes/navbar.html' %}
+    <br>
+  
+
+    <!-- Modal dialog -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <p>Your details have been submitted successfully!</p>
+            <p>Number of rows affected: {{ num_rows_affected }}</p>
+            <button class="ok-btn" onclick="redirectToIndex()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Show the modal dialog
+        modal.style.display = "block";
+
+        // Function to redirect to the index page
+        function redirectToIndex() {
+            window.location.href = "/nbr_index";
+        }
+    </script>
+</body>
+
+</html>

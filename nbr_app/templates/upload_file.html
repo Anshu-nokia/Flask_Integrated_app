@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Uploaded Successfully</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="./static/styles.css" />
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #f8f9fa;
+            
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5%;
+        }
+
+        .form-container {
+            width: 90%;
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #f8f9fa;
+            
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f1f3f5;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #7ddbea;
+            color: #fff;
+        }
+
+        .btn-submit:hover {
+            background-color: #afcb23;
+        }
+        .custom-color {
+    color: #0df3e8;
+}
+
+
+    </style>
+</head>
+
+<body>
+    <!-- Include your navigation bar if needed -->
+    {% include 'includes/navbar.html' %}
+    <h1 id="heading" class="mt-4 text-center" style="font-size: 35px; color: rgb(167, 247, 244);">Please Enter the following Details</h1>
+    <div class="container">
+        <!-- <h1 id="heading" class="mb-4 text-center text-color" style="font-size: 20px;">Please Enter the following Details</h1> -->
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <form id="enterDetailsForm" method="POST" action="/save_details_file">
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label for="site_id" class="text-color">Select Site ID:</label>
+                            <select id="site_id" name="site_id">
+                                {% for col_name in column_names %}
+                                <option value="{{ col_name }}">{{ col_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="sector_id" class="text-color">Select Sector ID:</label>
+                            <select id="sector_id" name="sector_id">
+                                {% for col_name in column_names %}
+                                <option value="{{ col_name }}">{{ col_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="lat" class="text-color">Select LATITUDE:</label>
+                            <select id="lat" name="lat">
+                                {% for col_name in column_names %}
+                                <option value="{{ col_name }}">{{ col_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="long" class="text-color">Select LONGITUDE:</label>
+                            <select id="long" name="long">
+                                {% for col_name in column_names %}
+                                <option value="{{ col_name }}">{{ col_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label for="azi" class="text-color">Select Azimuth:</label>
+                            <select id="azi" name="azi">
+                                {% for col_name in column_names %}
+                                <option value="{{ col_name }}">{{ col_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="bcch" class="text-color">Select BCCH/PCI/PCS:</label>
+                            <select id="bcch" name="bcch">
+                                {% for col_name in column_names %}
+                                <option value="{{ col_name }}">{{ col_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="freq" class="text-color">Select Uarfcn/Earfcn (if any)</label>
+                            <select id="freq" name="freq">
+                                {% for col_name in column_names %}
+                                <option value="{{ col_name }}">{{ col_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-submit text-color" style="color: black; background-color: rgb(95, 204, 231); border-color: rgb(133, 242, 231); 
+                    font-weight: bold;padding: 7px 2px; font-size: 20px;"> Submit</button>
+                </form>
+            </div>
+            <div id="successMessage" class="alert alert-success" style="display: none;">
+                File Uploaded Successfully
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

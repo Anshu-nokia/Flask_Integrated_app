@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<style>
+  html {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  .twoSiteMap {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .twoSiteMap label {
+        margin-right: 10px;
+    }
+
+    .twoSiteMap input[type="text"] {
+        width: 150px;
+        padding: 5px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .twoSiteMap button {
+        padding: 8px 15px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #a1bbd6;
+        color: #fff;
+        font-size: 14px;
+    }
+
+    .twoSiteMap button:hover {
+        background-color: #0056b3;
+    }
+
+    .canvas-container {
+        margin-top: 17px;
+        text-align: center;
+    }
+
+  .button-container {
+    display: flex;
+    /* Use flexbox to arrange buttons horizontally */
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .button-container form {
+    display: flex;
+    margin-right: 10px;
+    /* Add some spacing between buttons */
+  }
+
+  .download-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #a1bbd6;
+    /* Button background color */
+    color: #fff;
+    /* Button text color */
+    text-decoration: none;
+    /* Remove underlines */
+    border: none;
+    border-radius: 4px;
+  }
+
+  td {
+    padding: 0 13px;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+  }
+
+  .loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .success-prompt {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: none;
+  }
+
+  /* search_map styling */
+
+  /* .container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+  } */
+
+  #mapFormContainer,
+  #searchContainer {
+    background-color: linear-gradient(60deg, #29323c 0%, #485563 100%);
+    width: 100%;
+    border-radius: 5px;
+    flex: 1;
+    margin: 20px auto;
+  }
+
+  form {
+    text-align: center;
+  }
+
+  .form-group {
+    margin-right: 20px;
+  }
+
+  select,
+  input[type="number"] {
+    width: 200px;
+    height: 30px;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .canvas-container {
+    border: 1px solid black;
+    margin: 10px auto;
+    width: 1200px;
+    height: 330px;
+  }
+
+  #searchInput1,
+  #searchInput2 {
+    width: 200px;
+    height: 30px;
+    /* Adjusted height */
+    font-weight: bold;
+    overflow-x: hidden;
+    font-size: small;
+    border: none;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropbtn {
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: small;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 200px;
+    height: 30px;
+  }
+
+  #searchInput {
+    width: 200px;
+    height: 30px;
+    font-weight: bold;
+    overflow-x: hidden;
+    font-size: small;
+    border: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    color: black;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    /* Adjust the z-index value as needed */
+    padding: 10px;
+  }
+
+
+  .dropdown-content a {
+    display: block;
+    padding: 7px;
+    text-decoration: none;
+    color: black;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+</style>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>BCCH ANALYSIS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" media="screen" href="./static/nbr_styles.css" />
+</head>
+
+<body>
+  {% include 'includes/navbar.html' %}
+
+  <div class="button-container">
+    <!-- Add a button to download the NBR relations file -->
+    <a href="{{ bcch_download_link }}" class="download-button" role="button">Download Excel File</a>
+  </div>
+  <br>
+  <!-- {{ bcch_content | safe }} -->
+  <div id="bcchContent"
+    style="color: rgb(226, 226, 226); font-size: 16px; text-align: center;  max-height: 300px; overflow-y: auto; width: 90%; margin: auto;">
+    {{ bcch_content | safe }}
+  </div>
+
+  <div class="twoSiteMap">
+    <label for="site1_id" style="color: white; font-weight: bold;">SITE A:</label>
+    <input type="text" id="site1_id" placeholder="Enter site ID" title="Type in a site ID">
+
+    <label for="site2_id" style="color: white; font-weight: bold;">SITE B:</label>
+    <input type="text" id="site2_id" placeholder="Enter site ID" title="Type in a site ID">
+
+    <button id="generateMapBtn">Generate Map</button>
+    <button id="resetBtn">Reset</button>
+</div>
+
+<div id="mapCanvasContainer" class="canvas-container">
+    <!-- Map content will be dynamically generated here -->
+</div>
+  <div class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <div class="success-prompt" id="successPrompt">
+    ANALYSIS updated!
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const cells = document.querySelectorAll('#bcchContent td');
+        let lastClickedField = 'site1_id'; // Variable to track which input field was last clicked
+
+        // Add click event listener to each cell
+        cells.forEach(cell => {
+            cell.addEventListener('click', () => {
+                // Get the site ID from the cell
+                const siteId = cell.innerText.trim();
+
+                // Log the clicked site ID
+                console.log('Clicked Site ID:', siteId);
+
+                // Fill the input field with the clicked site ID based on the last clicked field
+                document.getElementById(lastClickedField).value = siteId;
+
+                // Alternate between filling Site A and Site B input fields
+                lastClickedField = lastClickedField === 'site1_id' ? 'site2_id' : 'site1_id';
+
+                // Optionally, you can pass the clicked site ID to the Flask route here
+            });
+        });
+
+        // Function to handle the search map button click
+        function searchMap() {
+            console.log('Button clicked'); // Log to check if the button click event is captured
+
+            // Show loading overlay
+            document.querySelector('.loading-overlay').style.display = 'block';
+
+            // Get site IDs from input fields
+            const site1Id = document.getElementById('site1_id').value;
+            const site2Id = document.getElementById('site2_id').value;
+
+            console.log('Site 1 ID:', site1Id); // Log to check site IDs
+            console.log('Site 2 ID:', site2Id);
+
+            // Prepare data to send to server
+            const requestData = {
+                site1_id: site1Id,
+                site2_id: site2Id
+            };
+
+            console.log('Request data:', requestData); // Log to check request data
+
+            // Send a fetch request to the server
+            fetch('/search_map', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Hide loading overlay
+                document.querySelector('.loading-overlay').style.display = 'none';
+
+                if (data.error) {
+                    console.error(data.error);
+                    return;
+                }
+
+                // Update the map container with the received map content
+                document.getElementById("mapCanvasContainer").innerHTML = data.map_content;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Function to reset the input fields
+        function resetFields() {
+            document.getElementById('site1_id').value = '';
+            document.getElementById('site2_id').value = '';
+        }
+
+        // Add click event listener to the generate map button
+        document.getElementById('generateMapBtn').addEventListener('click', searchMap);
+
+        // Add click event listener to the reset button
+        document.getElementById('resetBtn').addEventListener('click', resetFields);
+    });
+</script>
+
+
+
+
+</body>
+
+</html>
