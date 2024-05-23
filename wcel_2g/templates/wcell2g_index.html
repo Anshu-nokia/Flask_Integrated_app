@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>GeoLytics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./static/nbr_styles.css">
+    <link rel="icon" type="image/x-icon" href="./static/assets/aconnectlogo.jpg" />
+    <style>
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .loading-text {
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.25);
+            margin-top: 10px;
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .btn-group {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'includes/wcell2g_navbar.html' %}
+
+    <a class="btn btn-outline-light" href="#" id="modifyButton">MODIFY RAW FILE</a>
+    <button class="btn btn-outline-light" id="generateReportButton">Generate Report</button>
+    <div class="popup" id="modifyPopup">
+        <div class="loading-overlay">
+            <div class="loading-text">Loading... <span class="progress-text"></span></div>
+            <div class="loading-spinner"></div>
+        </div>
+        <div class="form">
+            <span class="close-btn" onclick="hidePopup()">&times;</span>
+            <form id="modifyForm" method="POST" enctype="multipart/form-data" action="/modify"
+                onsubmit="return validateFilename()">
+                <div class="form-element">
+                    <label for="filename">File:</label>
+                    <span id="filename">ZM_2G_WCL.xlsm</span>
+                    <a id="downloadLink" href="/download/ZM_2G_WCL.xlsm" download>Download</a>
+                </div>
+                <div class="form-element">
+                    <label for="file">Upload Modified File:</label>
+                    <input type="file" id="fileInput" name="file" accept=".xlsx, .xls, .xlsm" required>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function showPopup(popupSelector) {
+            document.querySelectorAll('.popup').forEach(function (popup) {
+                popup.classList.remove('active');
+            });
+            document.querySelector(popupSelector).classList.add("active");
+        }
+
+        function hidePopup() {
+            document.querySelectorAll(".popup").forEach(function (popup) {
+                popup.classList.remove("active");
+            });
+            document.querySelector(".loading-overlay").style.display = "none";
+        }
+
+        document.querySelector("#modifyButton").addEventListener("click", function () {
+            showPopup("#modifyPopup");
+        });
+
+        document.querySelectorAll(".close-btn").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                hidePopup();
+            });
+        });
+
+        function validateFilename() {
+            const expectedFilename = 'ZM_2G_WCL.xlsm';  // Expected filename
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (file && file.name !== expectedFilename) {
+                document.querySelector(".loading-overlay").style.display = "none";
+                alert('Filename is different. Please upload the correct file.');
+                return false;  // Prevent form submission
+            }
+
+            document.querySelector(".loading-overlay").style.display = "block";
+            return true;  // Allow form submission
+        }
+
+        document.querySelector("#modifyForm").addEventListener("submit", function (event) {
+            event.preventDefault();  // Prevent default form submission
+
+            if (validateFilename()) {
+                const formData = new FormData(this);
+
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        hidePopup();
+                        alert('File successfully uploaded');
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        hidePopup();
+                        alert('Error uploading file');
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

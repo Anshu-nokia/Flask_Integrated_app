@@ -8,6 +8,7 @@ from openpyxl import load_workbook
 from datetime import datetime
 import zipfile
 from nbr_app.new import nbr_blueprint
+from wcel_2g.wcell2G import wcell2g_blueprint
 
 app = Flask(__name__)
 
@@ -17,6 +18,7 @@ def index():
 
 # Geolytics Web App
 app.register_blueprint(nbr_blueprint, url_prefix='')
+app.register_blueprint(wcell2g_blueprint, url_prefix='')
 
 nbr_template_folder = os.path.join(os.path.dirname(__file__), 'nbr_app', 'templates')
 print(f"Template folder path: {nbr_template_folder}")
